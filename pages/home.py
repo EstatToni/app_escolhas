@@ -62,7 +62,7 @@ def _requirements_label(
     if names_all:
         parts.append(" + ".join(names_all))
     if names_any:
-        parts.append(" ou ".join(names_any))
+        parts.append(" e ".join(names_any))
     if not parts:
         return ""
     if len(parts) == 2:
@@ -146,15 +146,49 @@ def _render_theme_card(
 
 
 def page_home() -> None:
-    """Tela inicial com hero, progresso e grid de cards."""
+    """Tela inicial com hero, progresso e grid ordenado de cards."""
     st.title("Jogo das Escolhas")
     st.caption("Escolha um tema e siga o instinto.")
 
     items = _load_all_themes()
     title_by_id = {
-        it.get("id", ""): it.get("title", it.get("id", ""))
-        for it in items
+        it.get("id", ""): it.get("title", it.get("id", "")) for it in items
     }
+
+    # Ordem fixa desejada. Ajuste os IDs se forem diferentes no seu projeto.
+    custom_order = [
+        "criaturas_eletricas_v1",  # Animal
+        "musica_persona_v1",       # Música
+        "surpresa_v1",             # Surpresa
+    ]
+    rank = {k: i for i, k in enumerate(custom_order)}
+
+    # Itens não listados vão para o fim, pelo título (A→Z)
+    items_sorted = sorted(
+        items,
+        key=lambda it: (
+        rank.get(it.get("id", ""), 10**6),
+        it.get("title", it.get("id", "")),
+        ),
+    )
+
+    completed_ids = set(st.session_state.get("completed", []))
+    total = len(items_sorted)
+    done = len(completed_ids & {it.get("id", "") for it in items_sorted})
+
+    cols_prog = st.columns([0.7, 0.3])
+    with cols_prog[0]:
+        st.progress(done / total if total else 0.0, text=f"{done}/{total}")
+    with cols_prog[1]:
+        st.write("")
+
+    st.divider()
+
+    cols = st.columns(2)
+    for i, it in enumerate(items_sorted):
+        theme_raw = it.get("raw", it)
+        with cols[i % 2]:
+            _render_theme_card(theme_raw, completed_ids, title_by_id)
 
     completed_ids = set(st.session_state.get("completed", []))
     total = len(items)
