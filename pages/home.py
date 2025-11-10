@@ -1,12 +1,11 @@
 """Tela inicial com cards, pré-requisitos múltiplos e thumbnails."""
 
 from pathlib import Path
-from typing import Iterable
 
 import streamlit as st
 
 from core.state import start_quiz
-from core.theme_io import load_theme_files, load_theme
+from core.theme_io import load_theme, load_theme_files
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
@@ -17,13 +16,14 @@ def _load_all_themes() -> list[dict]:
     for p in load_theme_files():
         data = load_theme(p)
         items.append(
-            {
-                "id": data["id"],
-                "title": data["title"],
-                "requires": data.get("requires"),
-                "path": p,
-                "raw": data,
-            }
+        {
+            "id": data["id"],
+            "title": data["title"],
+            "requires": data.get("requires"),
+            "requires_any": data.get("requires_any"),
+            "path": p,
+            "raw": data,
+        }
         )
     return items
 
@@ -39,21 +39,21 @@ def _iterify(x: object) -> list[str]:
     return []
 
 
-def _is_unlocked(
-    req_all: object, req_any: object, completed_ids: set[str]
-) -> bool:
+def _is_unlocked(req_all: object,
+                 req_any: object,
+                 completed_ids: set[str]) -> bool:
     """Avalia liberação com ALL e ANY."""
     need_all = _iterify(req_all)
     need_any = _iterify(req_any)
-
     ok_all = all(r in completed_ids for r in need_all)
-    ok_any = True if not need_any else any(r in completed_ids for r in need_any)
+    ok_any = True if not need_any else any(r in completed_ids
+                                            for r in need_any)
     return ok_all and ok_any
 
 
-def _requirements_label(
-    req_all: object, req_any: object, title_by_id: dict[str, str]
-) -> str:
+def _requirements_label(req_all: object,
+                        req_any: object,
+                        title_by_id: dict[str, str]) -> str:
     """Gera texto 'Conclua: (A + B) e (C ou D)'."""
     names_all = [title_by_id.get(r, r) for r in _iterify(req_all)]
     names_any = [title_by_id.get(r, r) for r in _iterify(req_any)]
@@ -62,7 +62,7 @@ def _requirements_label(
     if names_all:
         parts.append(" + ".join(names_all))
     if names_any:
-        parts.append(" e ".join(names_any))
+        parts.append(" ou ".join(names_any))
     if not parts:
         return ""
     if len(parts) == 2:
@@ -86,14 +86,14 @@ def _find_theme_media(theme_raw: dict) -> Path | None:
     for name in ("thumb", "cover", "card", "_thumb", "_cover"):
         for ext in ("png", "jpg", "jpeg", "webp", "gif"):
             p = base / f"{name}.{ext}"
-            if p.exists():
-                return p
+        if p.exists():
+            return p
     return None
 
 
-def _render_theme_card(
-    theme_raw: dict, completed_ids: set[str], title_by_id: dict[str, str]
-) -> None:
+def _render_theme_card(theme_raw: dict,
+                       completed_ids: set[str],
+                       title_by_id: dict[str, str]) -> None:
     """Desenha card de tema com status, mídia e CTA."""
     theme_id = theme_raw.get("id", "")
     title = theme_raw.get("title", theme_id)
@@ -110,24 +110,24 @@ def _render_theme_card(
         with top_cols[1]:
             if unlocked:
                 st.markdown(
-                    '<div style="text-align:right; white-space:nowrap;">'
-                    '✅ <b>Disponível</b></div>',
-                    unsafe_allow_html=True,
+                '<div style="text-align:right; white-space:nowrap;">'
+                '✅ <b>Disponível</b></div>',
+                unsafe_allow_html=True,
                 )
             else:
                 need = _requirements_label(req_all, req_any, title_by_id)
                 st.markdown(
-                    '<div style="text-align:right; white-space:nowrap;">'
-                    '🔒 <b>Bloqueado</b></div>',
-                    unsafe_allow_html=True,
+                '<div style="text-align:right; white-space:nowrap;">'
+                '🔒 <b>Bloqueado</b></div>',
+                unsafe_allow_html=True,
                 )
                 if need:
                     st.markdown(
-                        '<div style="text-align:right; white-space:nowrap;'
-                        ' overflow:hidden; text-overflow:ellipsis;">'
-                        f'Conclua: {need}</div>',
-                        unsafe_allow_html=True,
-                    )
+                    '<div style="text-align:right; white-space:nowrap; '
+                    'overflow:hidden; text-overflow:ellipsis;">'
+                    f'Conclua: {need}</div>',
+                    unsafe_allow_html=True,
+                )
 
         media = _find_theme_media(theme_raw)
         if media:
@@ -136,13 +136,15 @@ def _render_theme_card(
         if intro:
             st.caption(intro)
 
+        # Key única por tema (id do tema).
         btn_key = f"play_{theme_id}"
         if unlocked:
             if st.button("▶️ Começar", key=btn_key, width="stretch"):
                 start_quiz(theme_raw)
                 st.rerun()
         else:
-            st.button("Bloqueado", key=btn_key, disabled=True, width="stretch")
+            st.button("Bloqueado", key=f"{btn_key}_locked", disabled=True,
+                    width="stretch")
 
 
 def page_home() -> None:
@@ -155,7 +157,7 @@ def page_home() -> None:
         it.get("id", ""): it.get("title", it.get("id", "")) for it in items
     }
 
-    # Ordem fixa desejada. Ajuste os IDs se forem diferentes no seu projeto.
+    # Ordem fixa desejada (ajuste os IDs se forem diferentes).
     custom_order = [
         "criaturas_eletricas_v1",  # Animal
         "musica_persona_v1",       # Música
@@ -186,24 +188,6 @@ def page_home() -> None:
 
     cols = st.columns(2)
     for i, it in enumerate(items_sorted):
-        theme_raw = it.get("raw", it)
-        with cols[i % 2]:
-            _render_theme_card(theme_raw, completed_ids, title_by_id)
-
-    completed_ids = set(st.session_state.get("completed", []))
-    total = len(items)
-    done = len(completed_ids & set(title_by_id.keys()))
-
-    cols_prog = st.columns([0.7, 0.3])
-    with cols_prog[0]:
-        st.progress(done / total if total else 0.0, text=f"{done}/{total}")
-    with cols_prog[1]:
-        st.write("")
-
-    st.divider()
-
-    cols = st.columns(2)
-    for i, it in enumerate(items):
         theme_raw = it.get("raw", it)
         with cols[i % 2]:
             _render_theme_card(theme_raw, completed_ids, title_by_id)
