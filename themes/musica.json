@@ -1,0 +1,266 @@
+{
+  "id": "musica_persona_v1",
+  "title": "Musíca",
+  "intro": "Sem rótulo, só ritmo. No fim, aparece o seu som-guia.",
+  "thumbnail": "assets/musica_persona/thumb.jpg",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Sábado cedo: qual faixa abre seu dia?",
+      "image": "assets/musica_persona/q1.jpg",
+      "image_alt": "",
+      "options": [
+        {
+          "id": "a",
+          "label": "Avicii - Wake Me Up",
+          "signals": ["leve","ritmo_bom","animada"],
+          "weights": { "ritmo_solar": 3, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "b",
+          "label": "Nico & Vinz - Am I Wrong",
+          "signals": ["foco","beat_marcado","proposito"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 2, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "c",
+          "label": "One Direction - Drag Me Down",
+          "signals": ["ecletica","descoberta","mix"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 1, "coracao_profundo": 0 }
+        },
+        {
+          "id": "d",
+          "label": "Imagine Dragons - Radioactive",
+          "signals": ["emocional","voz_e_letra","calma"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 1 }
+        }
+      ],
+      "weights": {}
+    },
+    {
+      "id": "q2",
+      "text": "Indo pra facul, dia de prova e você tá atrasada: qual som toca no carro?",
+      "image": "assets/musica_persona/q2.jpg",
+      "image_alt": "",
+      "options": [
+        {
+          "id": "a",
+          "label": "The Black Eyed Peas - Pump It",
+          "signals": ["leve","ritmo_bom","animada"],
+          "weights": { "ritmo_solar": 3, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "b",
+          "label": "Evanescence - Bring Me To Life",
+          "signals": ["foco","beat_marcado","proposito"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 2, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "c",
+          "label": "Eminem - Love The Way You Lie",
+          "signals": ["ecletica","descoberta","mix"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 1, "coracao_profundo": 0 }
+        },
+        {
+          "id": "d",
+          "label": "The Wanted - Glad You Came",
+          "signals": ["emocional","voz_e_letra","calma"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 1 }
+        }
+      ],
+      "weights": {}
+    },
+    {
+      "id": "q3",
+      "text": "Sua mãe pediu ajuda pra arrumar a casa e a playlist é sua: qual música vocês colocam?",
+      "image": "assets/musica_persona/q3.jpg",
+      "image_alt": "",
+      "options": [
+        {
+          "id": "a",
+          "label": "Bon Jovi - It's My Life",
+          "signals": ["leve","ritmo_bom","animada"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 2, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "b",
+          "label": "Michael Jackson - They Don’t Care About Us",
+          "signals": ["foco","beat_marcado","proposito"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 3, "coracao_profundo": 0 }
+        },
+        {
+          "id": "c",
+          "label": "Rihanna - Umbrella",
+          "signals": ["ecletica","descoberta","mix"],
+          "weights": { "ritmo_solar": 1, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "d",
+          "label": "Alec Benjamin - The Way You Felt",
+          "signals": ["emocional","voz_e_letra","calma"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 1 }
+        }
+      ],
+      "weights": {}
+    },
+    {
+      "id": "q4",
+      "text": "Seu ano em uma música — pelo ritmo, pela letra ou pelo clima: qual seria?",
+      "image": "assets/musica_persona/q4.jpg",
+      "image_alt": "",
+      "options": [
+        {
+          "id": "a",
+          "label": "Lady Gaga - Poker Face",
+          "signals": ["leve","ritmo_bom","animada"],
+          "weights": { "ritmo_solar": 1, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "b",
+          "label": "Maroon 5 - Maps",
+          "signals": ["foco","beat_marcado","proposito"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 2, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "c",
+          "label": "Adele - Rolling in the Deep",
+          "signals": ["ecletica","descoberta","mix"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 3 }
+        },
+        {
+          "id": "d",
+          "label": "Lukas Graham - 7 Years",
+          "signals": ["emocional","voz_e_letra","calma"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 1, "coracao_profundo": 0 }
+        }
+      ],
+      "weights": {}
+    },
+    {
+      "id": "q5",
+      "text": "Numa conversa leve, uma amiga pede dica de som pra conhecer: qual você indica primeiro?",
+      "image": "assets/musica_persona/q5.jpg",
+      "image_alt": "",
+      "options": [
+        {
+          "id": "a",
+          "label": "Sean Kingston, Justin Bieber - Eenie Meenie",
+          "signals": ["leve","ritmo_bom","animada"],
+          "weights": { "ritmo_solar": 2, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "b",
+          "label": "Akon - Smack That",
+          "signals": ["foco","beat_marcado","proposito"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 1, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "c",
+          "label": "Fifth Harmony - Worth It",
+          "signals": ["ecletica","descoberta","mix"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 3, "coracao_profundo": 0 }
+        },
+        {
+          "id": "d",
+          "label": "Avril Lavigne - Complicated",
+          "signals": ["emocional","voz_e_letra","calma"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 1 }
+        }
+      ],
+      "weights": {}
+    },
+    {
+      "id": "q6",
+      "text": "Você quer elogiar alguém e completa: “você é tão bonita quanto a música…”. Qual é?",
+      "image": "assets/musica_persona/q6.jpg",
+      "image_alt": "",
+      "options": [
+        {
+          "id": "a",
+          "label": "Katy Perry - Last Friday Night",
+          "signals": ["leve","ritmo_bom","animada"],
+          "weights": { "ritmo_solar": 1, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "b",
+          "label": "David Guetta - Titanium",
+          "signals": ["foco","beat_marcado","proposito"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 2, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "c",
+          "label": "Coldplay - Paradise",
+          "signals": ["ecletica","descoberta","mix"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 1, "coracao_profundo": 0 }
+        },
+        {
+          "id": "d",
+          "label": "Demi Lovato - Heart Attack",
+          "signals": ["emocional","voz_e_letra","calma"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 3 }
+        }
+      ],
+      "weights": {}
+    },
+    {
+      "id": "q7",
+      "text": "Se fosse ouvir a mesma música por um ano sem enjoar, qual escolheria?",
+      "image": "assets/musica_persona/q7.jpg",
+      "image_alt": "",
+      "options": [
+        {
+          "id": "a",
+          "label": "Ne-Yo - Beautiful Monster",
+          "signals": ["leve","ritmo_bom","animada"],
+          "weights": { "ritmo_solar": 2, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "b",
+          "label": "Sia - Chandelier",
+          "signals": ["foco","beat_marcado","proposito"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 1, "antena_ecletica": 0, "coracao_profundo": 0 }
+        },
+        {
+          "id": "c",
+          "label": "Gotye - Somebody That I Used To Know",
+          "signals": ["ecletica","descoberta","mix"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 3, "coracao_profundo": 0 }
+        },
+        {
+          "id": "d",
+          "label": "Tom Odell - Another Love",
+          "signals": ["emocional","voz_e_letra","calma"],
+          "weights": { "ritmo_solar": 0, "compasso_firme": 0, "antena_ecletica": 0, "coracao_profundo": 1 }
+        }
+      ],
+      "weights": {}
+    }
+  ],
+  "results": {
+    "ritmo_solar": {
+      "title": "Ritmo Solar",
+      "image_gif": "assets/musica_persona/results/ritmo_solar.gif",
+      "image_alt": "Cenas leves com batida boa",
+      "body": "Pessoa animada que curte som leve com batida gostosa. Você acende o lugar sem fazer esforço e puxa o clima para cima com naturalidade. Gosta de refrão que cola, passos simples e risada fácil. **Seu combo**: luz boa, gente querida, música que dá vontade de mover o pé."
+    },
+    "compasso_firme": {
+      "title": "Compasso Firme",
+      "image_gif": "assets/musica_persona/results/compasso_firme.gif",
+      "image_alt": "Beat marcado, foco e meta",
+      "body": "Pessoa focada, que curte conquistar as coisas no seu tempo — mas sem perder o groove. Ritmo marcado te ajuda a entrar no eixo e seguir plano com clareza. **Seu combo**: batida consistente, metas simples, sensação boa de progresso a cada faixa."
+    },
+    "antena_ecletica": {
+      "title": "Antena Eclética",
+      "image_gif": "assets/musica_persona/results/antena_ecletica.gif",
+      "image_alt": "Mix de estilos e descobertas",
+      "body": "Pessoa aberta, sem tempo ruim: topa misturar estilos e descobrir som novo em qualquer esquina. Você tem radar para achar pérolas, do indie ao clássico, e curte variar o script. **Seu combo**: playlists vivas, surpresas sonoras e zero apego a rótulo."
+    },
+    "coracao_profundo": {
+      "title": "Coração Profundo",
+      "image_gif": "assets/musica_persona/results/coracao_profundo.gif",
+      "image_alt": "Voz intensa, linhas emotivas",
+      "body": "Pessoa sentimental, que gosta de sentir fundo. Prefere voz que conta história, letra que pega e silêncio entre notas que dizem muito. **Seu combo**: lugares calmos, audição sem pressa e músicas que ficam com você depois que acabam."
+    }
+  },
+  "tie_breakers": ["q2", "q4", "q6"]
+}

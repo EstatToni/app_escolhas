@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.venv/
+venv/
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+
+# Streamlit / cache
+.streamlit/secrets.toml
+.cache/
+.streamlit-cache/
+.streamlit/**/__pycache__/
+
+# Segredos e env
+.env
+secrets/
+secrets.* 
+*.key
+*.pem
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Dados temporários
+assets/tmp/

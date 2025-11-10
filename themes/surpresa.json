@@ -1,0 +1,240 @@
+{
+  "id": "surpresa_v1",
+  "title": "Final",
+  "intro": "Responda sem pensar muito. No fim.....",
+    "thumbnail": "assets/surpresa/thumb.jpg",
+  "requires_any": ["musica_persona_v1", "animal_v1"],
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Quando esse date deveria acontecer?",
+      "image": "assets/surpresa/q1.jpg",
+      "image_alt": "Calendário com opções de dia e noite",
+      "options": [
+        { "id": "a", "label": "Hoje à noite", "signals": ["horario:noite_hoje"], "plan": {"horario": "noite_hoje"} },
+        { "id": "b", "label": "Sábado à tarde", "signals": ["horario:tarde_sabado"], "plan": {"horario": "tarde_sabado"} },
+        { "id": "c", "label": "Domingo de manhã", "signals": ["horario:manha_domingo"], "plan": {"horario": "manha_domingo"} },
+        { "id": "d", "label": "Semana, pós-aula", "signals": ["horario:noite_semana"], "plan": {"horario": "noite_semana"} }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "Qual clima combina mais com você hoje?",
+      "image": "assets/surpresa/q2.jpg",
+      "image_alt": "Ambientes aconchegante, animado, silencioso e ao ar livre",
+      "options": [
+        { "id": "a", "label": "Aconchegante e luz baixa", "signals": ["vibe:aconchegante"], "plan": {"vibe": "aconchegante"} },
+        { "id": "b", "label": "Animado, com energia boa", "signals": ["vibe:animado"], "plan": {"vibe": "animado"} },
+        { "id": "c", "label": "Silencioso, papo calmo", "signals": ["vibe:silencioso"], "plan": {"vibe": "silencioso"} },
+        { "id": "d", "label": "Ao ar livre, vento na cara", "signals": ["vibe:ar_livre"], "plan": {"vibe": "ar_livre"} }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "Onde seria a base do encontro?",
+      "image": "assets/surpresa/q3.jpg",
+      "image_alt": "Café, praia/parque, pub, restaurante",
+      "options": [
+        { "id": "a", "label": "Café pequeno e bonito", "signals": ["lugar:cafe"], "plan": {"lugar": "cafe"} },
+        { "id": "b", "label": "Parque/praça com verde", "signals": ["lugar:parque"], "plan": {"lugar": "parque"} },
+        { "id": "c", "label": "Pub com mesas de madeira", "signals": ["lugar:pub"], "plan": {"lugar": "pub"} },
+        { "id": "d", "label": "Restaurante simpático", "signals": ["lugar:restaurante"], "plan": {"lugar": "restaurante"} }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "Qual ‘atividade principal’ te anima mais?",
+      "image": "assets/surpresa/q4.jpg",
+      "image_alt": "Cinema, museu/feira, caminhada, jogo/boliche",
+      "options": [
+        { "id": "a", "label": "Cinema com poltrona boa", "signals": ["atividade:cinema"], "plan": {"atividade": "cinema"} },
+        { "id": "b", "label": "Museu/feira ou algo cultural", "signals": ["atividade:cultura"], "plan": {"atividade": "cultura"} },
+        { "id": "c", "label": "Caminhada com conversa leve", "signals": ["atividade:caminhada"], "plan": {"atividade": "caminhada"} },
+        { "id": "d", "label": "Jogo leve (boliche, sinuca, dardo)", "signals": ["atividade:jogo"], "plan": {"atividade": "jogo"} }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Sobre comida, o que te chama agora?",
+      "image": "assets/surpresa/q5.jpg",
+      "image_alt": "Pizza, massa, burger artesanal, algo leve",
+      "options": [
+        { "id": "a", "label": "Pizza ou massa", "signals": ["comida:italiana"], "plan": {"comida": "italiana"} },
+        { "id": "b", "label": "Burger/artesanal", "signals": ["comida:burger"], "plan": {"comida": "burger"} },
+        { "id": "c", "label": "Comida leve", "signals": ["comida:leve"], "plan": {"comida": "leve"} },
+        { "id": "d", "label": "Doces antes de tudo", "signals": ["comida:doces"], "plan": {"comida": "doces"} }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "E de beber?",
+      "image": "assets/surpresa/q6.jpg",
+      "image_alt": "Café, chá, suco, vinho/chope",
+      "options": [
+        { "id": "a", "label": "Café/chá", "signals": ["bebida:quente"], "plan": {"bebida": "quente"} },
+        { "id": "b", "label": "Suco/refresco", "signals": ["bebida:suco"], "plan": {"bebida": "suco"} },
+        { "id": "c", "label": "Vinho/chope", "signals": ["bebida:alcool"], "plan": {"bebida": "alcool"} },
+        { "id": "d", "label": "Água com gelo e limão", "signals": ["bebida:agua"], "plan": {"bebida": "agua"} }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "Nível de música/ruído no lugar:",
+      "image": "assets/surpresa/q7.jpg",
+      "image_alt": "Ícones de volume: baixo, médio, alto",
+      "options": [
+        { "id": "a", "label": "Baixo (quero ouvir nosso papo)", "signals": ["som:baixo"], "plan": {"som": "baixo"} },
+        { "id": "b", "label": "Médio (clima bom, sem gritar)", "signals": ["som:medio"], "plan": {"som": "medio"} },
+        { "id": "c", "label": "Alto (quero vibe)", "signals": ["som:alto"], "plan": {"som": "alto"} },
+        { "id": "d", "label": "Ao vivo (voz e violão, banda, DJ)", "signals": ["som:ao_vivo"], "plan": {"som": "ao_vivo"} }
+      ]
+    },
+    {
+      "id": "q8",
+      "text": "Como vamos chegar lá?",
+      "image": "assets/surpresa/q8.jpg",
+      "image_alt": "A pé, bike, app de carro, ônibus",
+      "options": [
+        { "id": "a", "label": "A pé (perto e gostoso de andar)", "signals": ["transporte:a_pe"], "plan": {"transporte": "a_pe"} },
+        { "id": "b", "label": "Bike/patinete", "signals": ["transporte:bike"], "plan": {"transporte": "bike"} },
+        { "id": "c", "label": "Aplicativo de carro", "signals": ["transporte:app"], "plan": {"transporte": "app"} },
+        { "id": "d", "label": "Ônibus/metro", "signals": ["transporte:onibus"], "plan": {"transporte": "onibus"} }
+      ]
+    },
+    {
+      "id": "q9",
+      "text": "Orçamento para hoje:",
+      "image": "assets/surpresa/q9.jpg",
+      "image_alt": "Ícones de moeda: baixo, médio, alto",
+      "options": [
+        { "id": "a", "label": "Leve", "signals": ["orcamento:baixo"], "plan": {"orcamento": "baixo"} },
+        { "id": "b", "label": "Médio", "signals": ["orcamento:medio"], "plan": {"orcamento": "medio"} },
+        { "id": "c", "label": "Caprichado", "signals": ["orcamento:alto"], "plan": {"orcamento": "alto"} },
+        { "id": "d", "label": "Surpreenda (sem exagero)", "signals": ["orcamento:surpresa"], "plan": {"orcamento": "surpresa"} }
+      ]
+    },
+    {
+      "id": "q10",
+      "text": "Dress code?",
+      "image": "assets/surpresa/q10.jpg",
+      "image_alt": "Casual, esportivo, arrumado, confortável",
+      "options": [
+        { "id": "a", "label": "Casual simples", "signals": ["dress:casual"], "plan": {"dress": "casual"} },
+        { "id": "b", "label": "Esportivo/leve", "signals": ["dress:esportivo"], "plan": {"dress": "esportivo"} },
+        { "id": "c", "label": "Arrumado discreto", "signals": ["dress:arrumado"], "plan": {"dress": "arrumado"} },
+        { "id": "d", "label": "Conforto acima de tudo", "signals": ["dress:conforto"], "plan": {"dress": "conforto"} }
+      ]
+    },
+    {
+      "id": "q11",
+      "text": "Gesto extra que te faria sorrir:",
+      "image": "assets/surpresa/q11.jpg",
+      "image_alt": "Flor, doce, bilhete, foto instantânea",
+      "options": [
+        { "id": "a", "label": "Uma flor simples", "signals": ["gesto:flor"], "plan": {"gesto": "flor"} },
+        { "id": "b", "label": "Doce preferido", "signals": ["gesto:doce"], "plan": {"gesto": "doce"} },
+        { "id": "c", "label": "Bilhete escrito à mão", "signals": ["gesto:bilhete"], "plan": {"gesto": "bilhete"} },
+        { "id": "d", "label": "Foto instantânea juntos", "signals": ["gesto:foto"], "plan": {"gesto": "foto"} }
+      ]
+    },
+    {
+      "id": "q12",
+      "text": "Se chover…",
+      "image": "assets/surpresa/q12.jpg",
+      "image_alt": "Guarda-chuva, janela com chuva, capa de chuva",
+      "options": [
+        { "id": "a", "label": "Plano B: café com janelas grandes", "signals": ["clima:chuva_cafe"], "plan": {"clima": "chuva_cafe"} },
+        { "id": "b", "label": "Seguimos: capa e risada", "signals": ["clima:chuva_vai_assim"], "plan": {"clima": "chuva_vai_assim"} },
+        { "id": "c", "label": "Filme em casa com comida boa", "signals": ["clima:chuva_casa"], "plan": {"clima": "chuva_casa"} },
+        { "id": "d", "label": "Museu/feira fechada", "signals": ["clima:chuva_cultura"], "plan": {"clima": "chuva_cultura"} }
+      ]
+    }
+  ],
+  "results": {
+    "surpresa": {
+      "title": "Surpresa",
+      "image_gif": "assets/surpresa/results/surpresa.gif",
+      "image_alt": "Convite animado para um encontro",
+      "body": "Pronto! Com suas respostas, dá para montar um convite que tem a sua cara — horário, lugar, comida, música, jeito de chegar e até um gesto extra. Se topa, eu organizo tudo para ficar do jeitinho que você escolheu. :)"
+    }
+  },
+    "compose_order": [
+    "horario","lugar","vibe","atividade","comida","bebida",
+    "som","transporte","orcamento","dress","gesto","clima"
+  ],
+  "compose_map": {
+    "horario": {
+      "noite_hoje": "hoje à noite",
+      "tarde_sabado": "sábado à tarde",
+      "manha_domingo": "domingo de manhã",
+      "noite_semana": "à noite, depois da aula"
+    },
+    "vibe": {
+      "aconchegante": "aconchegante",
+      "animado": "animado",
+      "silencioso": "silencioso",
+      "ar_livre": "ao ar livre"
+    },
+    "lugar": {
+      "cafe": "um café pequeno e bonito",
+      "parque": "um parque tranquilo",
+      "pub": "um pub com mesas de madeira",
+      "restaurante": "um restaurante simpático"
+    },
+    "atividade": {
+      "cinema": "um cinema com poltrona boa",
+      "cultura": "uma feira/museu",
+      "caminhada": "uma caminhada leve",
+      "jogo": "um jogo leve (boliche, sinuca ou dardo)"
+    },
+    "comida": {
+      "italiana": "pizza ou massa",
+      "burger": "hambúrguer artesanal",
+      "leve": "um prato leve",
+      "doces": "doces antes de tudo"
+    },
+    "bebida": {
+      "quente": "café ou chá",
+      "suco": "um suco gelado",
+      "alcool": "uma taça de vinho ou um chope",
+      "agua": "água com gelo e limão"
+    },
+    "som": {
+      "baixo": "baixo (pra ouvir nosso papo)",
+      "medio": "médio (clima bom, sem gritar)",
+      "alto": "alto (vibe ligada)",
+      "ao_vivo": "ao vivo (voz e violão, banda ou DJ)"
+    },
+    "transporte": {
+      "a_pe": "a pé",
+      "bike": "de bike ou patinete",
+      "app": "de aplicativo de carro",
+      "onibus": "de ônibus"
+    },
+    "orcamento": {
+      "baixo": "leve",
+      "medio": "médio",
+      "alto": "caprichado",
+      "surpresa": "surpresa controlada"
+    },
+    "dress": {
+      "casual": "casual simples",
+      "esportivo": "esportivo/leve",
+      "arrumado": "arrumado discreto",
+      "conforto": "confortável acima de tudo"
+    },
+    "gesto": {
+      "flor": "uma flor simples",
+      "doce": "seu doce preferido",
+      "bilhete": "um bilhete escrito à mão",
+      "foto": "uma foto instantânea juntos"
+    },
+    "clima": {
+      "chuva_cafe": "plano B: café com janelas grandes",
+      "chuva_vai_assim": "seguimos com capa e risada",
+      "chuva_casa": "filme em casa com comida boa",
+      "chuva_cultura": "museu/feira em lugar fechado"
+    }
+  },
+  "tie_breakers": []
+}

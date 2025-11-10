@@ -1,0 +1,275 @@
+{
+  "id": "criaturas_eletricas_v1",
+  "title": "Animal",
+  "intro": "Escolha pelo instinto. Não pense demais.",
+    "thumbnail": "assets/animal/thumb.jpg",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "É sexta-feira à noite e a aula vai até 23:00. Quem você é nesse dia?",
+      "image": "assets/animal/q1.jpg",
+      "image_alt": "Sala de aula à noite; gente saindo; cidade lá fora",
+      "options": [
+        {
+          "id": "a",
+          "label": "Contando os minutos para ir dormir",
+          "signals": ["sono", "caseiro", "silencio"],
+          "weights": {"cachorro_coitadinho": 3, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "b",
+          "label": "Já pensando no after com música",
+          "signals": ["after", "balada", "musica", "pub"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 3, "cachorro_esportista": 0}
+        },
+        {
+          "id": "c",
+          "label": "Com sono por causa do bandejão",
+          "signals": ["comida", "sono", "galera"],
+          "weights": {"cachorro_coitadinho": 1, "sam": 3, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "d",
+          "label": "Chegou atrasada porque estava treinando",
+          "signals": ["academia", "treino", "competitivo"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 3}
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "text": "Saiu a nota da prova. Você…",
+      "image": "assets/animal/q2.jpg",
+      "image_alt": "Caderno, nota, gente comemorando e gente pensativa",
+      "options": [
+        {
+          "id": "a",
+          "label": "Já calcula a nota do exame para passar",
+          "signals": ["planejada", "caseiro", "silencio"],
+          "weights": {"cachorro_coitadinho": 3, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "b",
+          "label": "Nem aparece na vista: está se arrumando para o rolê",
+          "signals": ["balada", "musica", "pub"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 3, "cachorro_esportista": 0}
+        },
+        {
+          "id": "c",
+          "label": "Feliz com um 5 — sinceramente, nem estudou",
+          "signals": ["comida", "galera", "leve"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 3, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "d",
+          "label": "Feliz porque tirou mais que a melhor amiga",
+          "signals": ["competitivo", "treino"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 3}
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "text": "Nas Calouriadas, quem você é?",
+      "image": "assets/animal/q3.jpg",
+      "image_alt": "Arquibancada, quadra, celular gravando, atleta em ação",
+      "options": [
+        {
+          "id": "a",
+          "label": "Ficou em casa; não curte barulho nem esporte",
+          "signals": ["caseiro", "silencio"],
+          "weights": {"cachorro_coitadinho": 3, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "b",
+          "label": "Torcedora que puxa a galera",
+          "signals": ["galera", "social"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 3, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "c",
+          "label": "Quem grava reels da atlética",
+          "signals": ["musica", "pub", "balada"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 3, "cachorro_esportista": 0}
+        },
+        {
+          "id": "d",
+          "label": "Atleta decisiva na final",
+          "signals": ["esporte", "competitivo", "treino"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 3}
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "text": "Qual paleta de cores tem mais a ver contigo?",
+      "image": "assets/animal/q4.jpg",
+      "image_alt": "Combinações de cores vibrantes e sóbrias",
+      "options": [
+        {
+          "id": "a",
+          "label": "Azul e branco",
+          "signals": ["esporte", "diurna"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 3}
+        },
+        {
+          "id": "b",
+          "label": "Roxo e preto",
+          "signals": ["noite", "balada"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 3, "cachorro_esportista": 0}
+        },
+        {
+          "id": "c",
+          "label": "Vermelho e amarelo",
+          "signals": ["comida", "feira", "galera"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 3, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "d",
+          "label": "Laranja e verde",
+          "signals": ["caseiro", "natureza"],
+          "weights": {"cachorro_coitadinho": 3, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "text": "Você foi sorteada para organizar o rolê dos cria. O plano é…",
+      "image": "assets/animal/q5.jpg",
+      "image_alt": "Chácara, quadra, centro, mesa de comida",
+      "options": [
+        {
+          "id": "a",
+          "label": "Trancamento coletivo na DAC às 14h (brincadeira?) e depois descanso",
+          "signals": ["caseiro", "silencio", "sono"],
+          "weights": {"cachorro_coitadinho": 3, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "b",
+          "label": "Chácara: open bar + torneio de Just Dance",
+          "signals": ["balada", "musica", "pub"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 3, "cachorro_esportista": 0}
+        },
+        {
+          "id": "c",
+          "label": "Degustação de hambúrguer artesanal no centro",
+          "signals": ["comida", "galera"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 3, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "d",
+          "label": "Dia do vôlei nas quadras da FEF com pop alto",
+          "signals": ["esporte", "treino", "competitivo"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 3}
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "text": "No Divertidamente 3, qual emoção seria sua escalação?",
+      "image": "assets/animal/q6.jpg",
+      "image_alt": "Ícones de emoções e energia",
+      "options": [
+        {
+          "id": "a",
+          "label": "Coitadix — mora na coitadolândia e ama silêncio",
+          "signals": ["caseiro", "silencio"],
+          "weights": {"cachorro_coitadinho": 3, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "b",
+          "label": "Happy Feet — resolve com dancinha do TikTok",
+          "signals": ["musica", "balada"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 3, "cachorro_esportista": 0}
+        },
+        {
+          "id": "c",
+          "label": "Sam — cachorro salsicha feliz comendo salsicha",
+          "signals": ["comida", "galera"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 3, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "d",
+          "label": "Marquinhos — EU SOU A VELOCIDADE",
+          "signals": ["competitivo", "academia", "treino"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 3}
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "text": "Se não fosse Administração, qual seria o trabalho dos sonhos?",
+      "image": "assets/animal/q7.jpg",
+      "image_alt": "Palco, estúdio, oficina, pista",
+      "options": [
+        {
+          "id": "a",
+          "label": "Sommelier de bandas de rock autoral",
+          "signals": ["musica", "pub", "noite"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 3, "cachorro_esportista": 0}
+        },
+        {
+          "id": "b",
+          "label": "Figurante do High School Musical",
+          "signals": ["galera", "social", "palco"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 3, "cachorro_dancante": 1, "cachorro_esportista": 0}
+        },
+        {
+          "id": "c",
+          "label": "Adestradora de flamingo azul (paciente e na sua)",
+          "signals": ["calma", "caseiro"],
+          "weights": {"cachorro_coitadinho": 3, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 0}
+        },
+        {
+          "id": "d",
+          "label": "Fabricante de tênis de corrida para cadeirantes",
+          "signals": ["esporte", "competitivo", "engenharia"],
+          "weights": {"cachorro_coitadinho": 0, "sam": 0, "cachorro_dancante": 0, "cachorro_esportista": 3}
+        }
+      ]
+    }
+  ],
+  "results": {
+    "cachorro_coitadinho": {
+      "title": "Você seria um Cachorro Coitadinho",
+      "image": "assets/animal/results/cachorro_coitado.gif",
+      "image_alt": "Cão deitado no sofá, coberta e paz",
+      "body": "Caseira por vocação, alérgica a barulho desnecessário e dona de um radar de conforto apurado. Você gosta do **calmo que rende**: luz baixa, conversa macia e zero caos.",
+      "variants": [
+        { "when": { "signal": "silencio", "min": 2 }, "body_suffix": " Ambientes com pouco ruído te deixam no modo brilhante." },
+        { "when": { "signal": "caseiro", "min": 2 }, "body_suffix": " E tudo que é bom cabe dentro de uma noite tranquila." }
+      ]
+    },
+    "sam": {
+      "title": "Você seria um Sam",
+      "image": "assets/animal/results/sam.gif",
+      "image_alt": "Cachorro salsicha sorrindo comendo um lanche",
+      "body": "Topa quase tudo — se tiver **pessoas queridas** ou **comida boa** por perto. Social na medida certa, você muda o clima de qualquer mesa.",
+      "variants": [
+        { "when": { "signal": "comida", "min": 2 }, "body_suffix": " Cardápios são mapas de aventura para você." },
+        { "when": { "signal": "galera", "min": 2 }, "body_suffix": " Sua risada liga a roda e mantém tudo leve." }
+      ]
+    },
+    "cachorro_dancante": {
+      "title": "Você seria um Cachorro Dançante",
+      "image": "assets/animal/results/cachorro_dancante.gif",
+      "image_alt": "Cão com fone em luz roxa de pista",
+      "body": "Som na cabeça, passinho na alma. Você encontra pista até na calçada do campus. **Noite é energia**: pub, dancinha, reels e histórias para amanhã. ",
+      "variants": [
+        { "when": { "signal": "musica", "min": 2 }, "body_suffix": " Sua trilha sonora é a sua superpotência." },
+        { "when": { "signal": "balada", "min": 2 }, "body_suffix": " Corta o tédio com um passinho e um refrão." }
+      ]
+    },
+    "cachorro_esportista": {
+      "title": "Você seria um Cachorro Esporte",
+      "image": "assets/animal/results/cachorro_esporte.gif",
+      "image_alt": "Cão com faixa de capitão e bola ao lado",
+      "body": "Energia que sobra, foco de campeão e vontade de testar limites. Você gosta de **meta clara** e de ver evolução na prática.",
+      "variants": [
+        { "when": { "signal": "academia", "min": 2 }, "body_suffix": " A endorfina organiza seus pensamentos." },
+        { "when": { "signal": "competitivo", "min": 2 }, "body_suffix": " Em finais, você cresce e puxa o time junto." }
+      ]
+    }
+  },
+  "tie_breakers": ["q2", "q3", "q6"]
+}
