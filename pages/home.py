@@ -4,7 +4,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from core.state import start_quiz
+from core.state import go_hub, start_quiz
 from core.theme_io import load_theme, load_theme_files
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -151,6 +151,13 @@ def page_home() -> None:
     """Tela inicial com hero, progresso e grid ordenado de cards."""
     st.title("Jogo das Escolhas")
     st.caption("Escolha um tema e siga o instinto.")
+
+    # Botão para voltar ao Hub (seleção de jogos)
+    right = st.columns([0.75, 0.25])[1]
+    with right:
+        if st.button("⟵ Jogos", key="back_hub_quiz", width="stretch"):
+            go_hub()
+            st.rerun()
 
     items = _load_all_themes()
     title_by_id = {
