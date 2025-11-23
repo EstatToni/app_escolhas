@@ -1,27 +1,33 @@
-"""Aplicativo principal: Hub de seleção de jogos e roteamento de cada modo."""
+"""Aplicativo principal: Hub de seleção de jogos."""
 
 import streamlit as st
 
-# Importa páginas do Jogo 1 (Quiz)
+# Importa o jogo 1 (Quiz)
 from games.quiz.pages.home import page_home as quiz_home
 from games.quiz.pages.quiz import page_quiz
 from games.quiz.pages.result import page_result
 
+# Importa o jogo 2 (Roleta)
+from games.roleta.pages.roleta import page_roleta
+
 
 def init_hub_state() -> None:
-    """Garante que o estado global do Hub exista."""
+    """Garante que o estado do Hub exista."""
     if "active_game" not in st.session_state:
         st.session_state.active_game = None
+    if "page" not in st.session_state:
+        st.session_state.page = "home"
 
 
 def go_hub() -> None:
     """Retorna para a tela inicial."""
     st.session_state.active_game = None
+    st.session_state.page = "home"
     st.rerun()
 
 
 def main() -> None:
-    """Controla o fluxo entre Hub e cada jogo."""
+    """Controla o fluxo entre Hub e Jogos."""
     init_hub_state()
 
     game = st.session_state.active_game
@@ -35,20 +41,20 @@ def main() -> None:
         st.markdown("### 🎯 Jogo 1 — Quiz")
         if st.button("▶️ Jogar Quiz", key="go_quiz", use_container_width=True):
             st.session_state.active_game = "quiz"
-            st.session_state.page = "home"   # <<< IMPORTANTE
+            st.session_state.page = "home"
             st.rerun()
 
         st.markdown("---")
 
         st.markdown("### 🌀 Jogo 2 — Roleta")
-        st.button("⏳ Em breve", key="go_roleta",
-                  disabled=True, use_container_width=True)
+        if st.button("▶️ Jogar Roleta", key="go_roleta_main", use_container_width=True):
+            st.session_state.active_game = "roleta"
+            st.rerun()
 
         st.markdown("---")
 
         st.markdown("### 🍀 Jogo 3 — Sorte")
-        st.button("⏳ Em breve", key="go_sorte",
-                  disabled=True, use_container_width=True)
+        st.button("⏳ Em breve", key="go_sorte", disabled=True, use_container_width=True)
 
         return
 
@@ -57,12 +63,10 @@ def main() -> None:
     # ---------------------------------------------------------------------
     if game == "quiz":
 
-        # Botão para voltar ao Hub
-        if st.button("⟵ Voltar ao início", key="back_from_quiz"):
+        if st.button("⟵ Voltar ao início", key="quiz_back"):
             go_hub()
             return
 
-        # Estado interno do jogo (home → quiz → result)
         page = st.session_state.get("page", "home")
 
         if page == "home":
@@ -77,9 +81,19 @@ def main() -> None:
             page_result()
             return
 
-        # Se der algo inesperado, volta pra home do jogo
         st.session_state.page = "home"
         st.rerun()
+
+    # ---------------------------------------------------------------------
+    # 3) Jogo 2 — Roleta
+    # ---------------------------------------------------------------------
+    if game == "roleta":
+        if st.button("⟵ Voltar ao início", key="roleta_back"):
+            go_hub()
+            return
+
+        page_roleta()
+        return
 
 
 if __name__ == "__main__":
