@@ -1,12 +1,11 @@
 """Gerência do estado via st.session_state e operações do quiz."""
 
-from typing import Dict, List, Tuple
-
+from typing import Dict
 import streamlit as st
 
 
 def init_state():
-    """Inicializa chaves do estado se necessário."""
+    """Inicializa todas as chaves necessárias no session_state."""
     if "page" not in st.session_state:
         st.session_state.page = "home"
     if "theme" not in st.session_state:
@@ -24,7 +23,7 @@ def init_state():
 
 
 def get_page() -> str:
-    """Obtém a página atual."""
+    """Retorna a página atual."""
     return st.session_state.page
 
 
@@ -34,7 +33,7 @@ def set_page(name: str):
 
 
 def start_quiz(theme: Dict):
-    """Inicia o quiz para o tema escolhido."""
+    """Inicializa o quiz para um tema específico."""
     st.session_state.theme = theme
     st.session_state.q_index = 0
     st.session_state.answers = []
@@ -44,40 +43,35 @@ def start_quiz(theme: Dict):
 
 
 def reset_app():
-    """Reseta o app para a tela inicial (mantém progresso)."""
+    """Retorna o app para a tela inicial mantendo progresso salvo."""
     for key in ["theme", "q_index", "answers", "scores", "finished"]:
         if key in st.session_state:
             del st.session_state[key]
     st.session_state.page = "home"
 
 
-def current_question() -> Dict:
-    """Retorna a pergunta atual do tema."""
+def current_question():
+    """Retorna o dicionário da pergunta atual."""
     theme = st.session_state.theme
     idx = st.session_state.q_index
     return theme["questions"][idx]
 
 
 def record_answer(q_id: str, opt_id: str):
-    """Registra a resposta e atualiza pontuações pela opção escolhida."""
+    """Registra uma resposta e aplica os pesos ao placar."""
     st.session_state.answers.append((q_id, opt_id))
     theme = st.session_state.theme
-    q_map = {q["id"]: q for q in theme["questions"]}
-    q = q_map[q_id]
-    opts = q.get("options", [])
-    opt = next((o for o in opts if o.get("id") == opt_id), None)
-    # Preferir pesos na opção; se ausente, cair para pesos da pergunta
-    weight_map = {}
-    if opt and isinstance(opt.get("weights"), dict):
-        weight_map = opt["weights"]
-    else:
-        weight_map = q.get("weights", {})  # compatibilidade antiga
+    q = {q["id"]: q for q in theme["questions"]}[q_id]
+
+    opt = next((o for o in q.get("options", []) if o["id"] == opt_id), None)
+    weights = opt.get("weights", {}) if opt else q.get("weights", {})
+
     for rk in st.session_state.scores.keys():
-        st.session_state.scores[rk] += int(weight_map.get(rk, 0))
+        st.session_state.scores[rk] += int(weights.get(rk, 0))
 
 
 def next_step():
-    """Avança para a próxima pergunta ou finaliza."""
+    """Avança para a próxima pergunta ou finaliza o quiz."""
     theme = st.session_state.theme
     if st.session_state.q_index + 1 < len(theme["questions"]):
         st.session_state.q_index += 1
@@ -92,5 +86,5 @@ def mark_completed(theme_id: str):
 
 
 def is_completed(theme_id: str) -> bool:
-    """Indica se o tema foi concluído."""
+    """Retorna True se o tema já foi concluído."""
     return theme_id in st.session_state.completed

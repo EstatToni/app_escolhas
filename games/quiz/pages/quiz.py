@@ -4,21 +4,24 @@ from pathlib import Path
 
 import streamlit as st
 
-from core.state import current_question, record_answer, next_step
+from games.quiz.core.state import current_question, next_step, record_answer
+
+ROOT_DIR = Path(__file__).resolve().parents[3]
 
 
 def _show_question_image(q: dict):
-    """Exibe imagem se existir; senão, mostra lembrete de caminho."""
+    """Exibe imagem da pergunta, resolvendo caminho relativo ao projeto."""
     path = q.get("image")
-    alt = q.get("image_alt", "Imagem ilustrativa")
     if not path:
         return
+
     p = Path(path)
+    if not p.is_absolute():
+        p = ROOT_DIR / p
     if p.exists():
         st.image(str(p), caption=None)
     else:
-        st.caption(f"[adicione a imagem em: {path}]")
-        # dica: coloque a imagem local no caminho acima
+        st.caption(f"[imagem não encontrada: {p}]")
 
 
 def page_quiz():

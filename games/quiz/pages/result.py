@@ -1,31 +1,34 @@
 """Página de resultado do quiz, com imagem/gif e convite Surpresa."""
 
 from pathlib import Path
-from typing import Iterable, List, Tuple, Union
+from typing import List, Tuple, Union
 
 import streamlit as st
 
-from core.engine import compute_result, apply_variant
-from core.state import reset_app, start_quiz, mark_completed
+from games.quiz.core.engine import apply_variant, compute_result
+from games.quiz.core.state import mark_completed, reset_app, start_quiz
 
 # Importa o composer se existir; caso contrário, funciona sem convite.
 try:
-    from core.composer import collect_plan, compose_invite  # type: ignore
+    from games.quiz.core.composer import (  # type: ignore
+        collect_plan,
+        compose_invite,
+    )
     _HAS_COMPOSER = True
 except Exception:  # noqa: BLE001
     collect_plan = None  # type: ignore
     compose_invite = None  # type: ignore
     _HAS_COMPOSER = False
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[3]
 
 
 def _resolve_path(path_str: str) -> Path:
-    """Resolve caminho relativo à raiz do projeto."""
+    """Resolve caminhos relativos ao diretório raiz do projeto."""
     p = Path(path_str)
-    if p.is_absolute():
-        return p
-    return ROOT_DIR / p
+    if not p.is_absolute():
+        p = ROOT_DIR / p
+    return p
 
 
 def _render_result_card(block: dict) -> None:

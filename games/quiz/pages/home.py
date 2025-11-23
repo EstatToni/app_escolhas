@@ -1,17 +1,17 @@
-"""Tela inicial com cards, pré-requisitos múltiplos e thumbnails."""
+"""Tela inicial do Jogo 1: grid de temas, pré-requisitos e thumbnails."""
 
 from pathlib import Path
 
 import streamlit as st
 
-from core.state import start_quiz
-from core.theme_io import load_theme, load_theme_files
+from games.quiz.core.state import start_quiz
+from games.quiz.core.theme_io import load_theme, load_theme_files
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+ROOT_DIR = Path(__file__).resolve().parents[3]
 
 
 def _load_all_themes() -> list[dict]:
-    """Lê todos os temas e retorna metadados + json bruto."""
+    """Carrega todos os JSONs do diretório `themes/`."""
     items: list[dict] = []
     for p in load_theme_files():
         data = load_theme(p)
@@ -29,7 +29,14 @@ def _load_all_themes() -> list[dict]:
 
 
 def _iterify(x: object) -> list[str]:
-    """Converte str em [str] e mantém listas/tuplas/conjuntos."""
+    """Converte entrada em lista de strings.
+
+    Regras:
+    - None → []
+    - "abc" → ["abc"]
+    - lista/tupla/conjunto → cada item convertido para string.
+    - Qualquer outro tipo → []
+    """
     if not x:
         return []
     if isinstance(x, str):
@@ -42,19 +49,34 @@ def _iterify(x: object) -> list[str]:
 def _is_unlocked(req_all: object,
                  req_any: object,
                  completed_ids: set[str]) -> bool:
-    """Avalia liberação com ALL e ANY."""
+    """Determina se um tema está liberado para o usuário.
+
+    Um tema pode declarar:
+    - requires: todos devem estar concluídos
+    - requires_any: pelo menos um deve estar concluído
+
+    A função retorna True se ambos os critérios forem satisfeitos.
+    """
     need_all = _iterify(req_all)
     need_any = _iterify(req_any)
+
     ok_all = all(r in completed_ids for r in need_all)
     ok_any = True if not need_any else any(r in completed_ids
                                             for r in need_any)
+
     return ok_all and ok_any
 
 
 def _requirements_label(req_all: object,
                         req_any: object,
                         title_by_id: dict[str, str]) -> str:
-    """Gera texto 'Conclua: (A + B) e (C ou D)'."""
+    """Gera uma string amigável descrevendo pré-requisitos.
+
+    Exemplos:
+    - Apenas requires → "Tema A + Tema B"
+    - Apenas requires_any → "Tema A ou Tema B"
+    - Ambos → "(Tema A + Tema B) e (Tema C ou Tema D)"
+    """
     names_all = [title_by_id.get(r, r) for r in _iterify(req_all)]
     names_any = [title_by_id.get(r, r) for r in _iterify(req_any)]
 
@@ -63,6 +85,7 @@ def _requirements_label(req_all: object,
         parts.append(" + ".join(names_all))
     if names_any:
         parts.append(" ou ".join(names_any))
+
     if not parts:
         return ""
     if len(parts) == 2:
@@ -71,7 +94,13 @@ def _requirements_label(req_all: object,
 
 
 def _find_theme_media(theme_raw: dict) -> Path | None:
-    """Tenta achar thumbnail; prioriza 'thumbnail' do JSON."""
+    """Localiza a thumbnail do tema.
+
+    Regras:
+    1) Se o JSON tiver "thumbnail", tenta usar.
+    2) Caso contrário, procura automaticamente em:
+       assets/<pasta_do_tema>/{thumb,cover,card}.* (png/jpg/webp/gif)
+    """
     th = theme_raw.get("thumbnail")
     if th:
         p = Path(th)
@@ -83,18 +112,28 @@ def _find_theme_media(theme_raw: dict) -> Path | None:
     theme_id = theme_raw.get("id", "tema")
     folder = theme_id.split("_v")[0]
     base = ROOT_DIR / "assets" / folder
+
     for name in ("thumb", "cover", "card", "_thumb", "_cover"):
         for ext in ("png", "jpg", "jpeg", "webp", "gif"):
             p = base / f"{name}.{ext}"
-        if p.exists():
-            return p
+            if p.exists():
+                return p
+
     return None
 
 
 def _render_theme_card(theme_raw: dict,
                        completed_ids: set[str],
                        title_by_id: dict[str, str]) -> None:
-    """Desenha card de tema com status, mídia e CTA."""
+    """Renderiza um card completo para um tema do Quiz.
+
+    O card contém:
+    - título
+    - status (Disponível / Bloqueado)
+    - imagem (thumbnail)
+    - introdução
+    - botão 'Começar' ou 'Bloqueado'
+    """
     theme_id = theme_raw.get("id", "")
     title = theme_raw.get("title", theme_id)
     intro = theme_raw.get("intro", "")
@@ -104,6 +143,7 @@ def _render_theme_card(theme_raw: dict,
     unlocked = _is_unlocked(req_all, req_any, completed_ids)
 
     with st.container(border=True):
+        # Linha superior: Título à esquerda e status à direita.
         top_cols = st.columns([0.78, 0.22])
         with top_cols[0]:
             st.markdown(f"### {title}")
@@ -129,14 +169,16 @@ def _render_theme_card(theme_raw: dict,
                     unsafe_allow_html=True,
                 )
 
+        # Imagem
         media = _find_theme_media(theme_raw)
         if media:
             st.image(str(media), width="stretch")
 
+        # Introdução opcional
         if intro:
             st.caption(intro)
 
-        # Key única por tema (id do tema).
+        # Botão
         btn_key = f"play_{theme_id}"
         if unlocked:
             if st.button("▶️ Começar", key=btn_key, width="stretch"):
@@ -148,7 +190,13 @@ def _render_theme_card(theme_raw: dict,
 
 
 def page_home() -> None:
-    """Tela inicial com hero, progresso e grid ordenado de cards."""
+    """Tela principal do Jogo 1.
+
+    Mostra:
+    - Título
+    - Barra de progresso dos temas concluídos
+    - Grid 2xN com todos os temas ordenados
+    """
     st.title("Jogo das Escolhas")
     st.caption("Escolha um tema e siga o instinto.")
 
@@ -157,23 +205,24 @@ def page_home() -> None:
         it.get("id", ""): it.get("title", it.get("id", "")) for it in items
     }
 
-    # Ordem fixa desejada (ajuste os IDs se forem diferentes).
+    # Ordem fixa desejada (IDs reais dos seus JSONs)
     custom_order = [
-        "criaturas_eletricas_v1",  # Animal
-        "musica_persona_v1",       # Música
-        "surpresa_v1",             # Surpresa
+        "criaturas_eletricas_v1",
+        "musica_persona_v1",
+        "surpresa_v1",
     ]
     rank = {k: i for i, k in enumerate(custom_order)}
 
-    # Itens não listados vão para o fim, pelo título (A→Z)
+    # Temas não listados → vão pro final em ordem alfabética
     items_sorted = sorted(
         items,
         key=lambda it: (
-        rank.get(it.get("id", ""), 10**6),
-        it.get("title", it.get("id", "")),
+            rank.get(it.get("id", ""), 10**6),
+            it.get("title", it.get("id", "")),
         ),
     )
 
+    # Progresso
     completed_ids = set(st.session_state.get("completed", []))
     total = len(items_sorted)
     done = len(completed_ids & {it.get("id", "") for it in items_sorted})
@@ -186,6 +235,7 @@ def page_home() -> None:
 
     st.divider()
 
+    # Grid de cards → 2 colunas
     cols = st.columns(2)
     for i, it in enumerate(items_sorted):
         theme_raw = it.get("raw", it)
