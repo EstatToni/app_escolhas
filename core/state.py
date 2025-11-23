@@ -94,19 +94,3 @@ def mark_completed(theme_id: str):
 def is_completed(theme_id: str) -> bool:
     """Indica se o tema foi concluído."""
     return theme_id in st.session_state.completed
-
-
-def set_game(game_id: str) -> None:
-    """Seleciona o jogo atual e limpa estados do Quiz."""
-    import streamlit as st  # importar aqui evita ciclos
-    st.session_state.game = game_id
-    for k in ("theme", "scores", "answers", "signals"):
-        st.session_state.pop(k, None)
-
-
-def go_hub() -> None:
-    """Volta para a tela de seleção de jogos (Hub)."""
-    import streamlit as st
-    for k in ("theme", "scores", "answers", "signals"):
-        st.session_state.pop(k, None)
-    st.session_state.game = None
