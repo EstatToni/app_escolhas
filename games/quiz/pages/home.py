@@ -11,19 +11,24 @@ ROOT_DIR = Path(__file__).resolve().parents[3]
 
 
 def _load_all_themes() -> list[dict]:
-    """Carrega todos os JSONs do diretório `themes/`."""
+    """Carrega todos os JSONs válidos do diretório `themes/`."""
     items: list[dict] = []
     for p in load_theme_files():
-        data = load_theme(p)
+        try:
+            data = load_theme(p)
+        except ValueError:
+            # Ignora arquivos JSON que não são temas de quiz
+            continue
+
         items.append(
-        {
-            "id": data["id"],
-            "title": data["title"],
-            "requires": data.get("requires"),
-            "requires_any": data.get("requires_any"),
-            "path": p,
-            "raw": data,
-        }
+            {
+                "id": data["id"],
+                "title": data["title"],
+                "requires": data.get("requires"),
+                "requires_any": data.get("requires_any"),
+                "path": p,
+                "raw": data,
+            }
         )
     return items
 
@@ -46,9 +51,11 @@ def _iterify(x: object) -> list[str]:
     return []
 
 
-def _is_unlocked(req_all: object,
-                 req_any: object,
-                 completed_ids: set[str]) -> bool:
+def _is_unlocked(
+    req_all: object,
+    req_any: object,
+    completed_ids: set[str],
+) -> bool:
     """Determina se um tema está liberado para o usuário.
 
     Um tema pode declarar:
@@ -61,15 +68,18 @@ def _is_unlocked(req_all: object,
     need_any = _iterify(req_any)
 
     ok_all = all(r in completed_ids for r in need_all)
-    ok_any = True if not need_any else any(r in completed_ids
-                                            for r in need_any)
+    ok_any = True if not need_any else any(
+        r in completed_ids for r in need_any
+    )
 
     return ok_all and ok_any
 
 
-def _requirements_label(req_all: object,
-                        req_any: object,
-                        title_by_id: dict[str, str]) -> str:
+def _requirements_label(
+    req_all: object,
+    req_any: object,
+    title_by_id: dict[str, str],
+) -> str:
     """Gera uma string amigável descrevendo pré-requisitos.
 
     Exemplos:
@@ -122,9 +132,11 @@ def _find_theme_media(theme_raw: dict) -> Path | None:
     return None
 
 
-def _render_theme_card(theme_raw: dict,
-                       completed_ids: set[str],
-                       title_by_id: dict[str, str]) -> None:
+def _render_theme_card(
+    theme_raw: dict,
+    completed_ids: set[str],
+    title_by_id: dict[str, str],
+) -> None:
     """Renderiza um card completo para um tema do Quiz.
 
     O card contém:
@@ -143,50 +155,50 @@ def _render_theme_card(theme_raw: dict,
     unlocked = _is_unlocked(req_all, req_any, completed_ids)
 
     with st.container(border=True):
-        # Linha superior: Título à esquerda e status à direita.
         top_cols = st.columns([0.78, 0.22])
         with top_cols[0]:
             st.markdown(f"### {title}")
         with top_cols[1]:
             if unlocked:
                 st.markdown(
-                '<div style="text-align:right; white-space:nowrap;">'
-                '✅ <b>Disponível</b></div>',
-                unsafe_allow_html=True,
+                    '<div style="text-align:right; white-space:nowrap;">'
+                    '✅ <b>Disponível</b></div>',
+                    unsafe_allow_html=True,
                 )
             else:
                 need = _requirements_label(req_all, req_any, title_by_id)
                 st.markdown(
-                '<div style="text-align:right; white-space:nowrap;">'
-                '🔒 <b>Bloqueado</b></div>',
-                unsafe_allow_html=True,
+                    '<div style="text-align:right; white-space:nowrap;">'
+                    '🔒 <b>Bloqueado</b></div>',
+                    unsafe_allow_html=True,
                 )
                 if need:
                     st.markdown(
-                    '<div style="text-align:right; white-space:nowrap; '
-                    'overflow:hidden; text-overflow:ellipsis;">'
-                    f'Conclua: {need}</div>',
-                    unsafe_allow_html=True,
-                )
+                        '<div style="text-align:right; white-space:nowrap; '
+                        'overflow:hidden; text-overflow:ellipsis;">'
+                        f'Conclua: {need}</div>',
+                        unsafe_allow_html=True,
+                    )
 
-        # Imagem
         media = _find_theme_media(theme_raw)
         if media:
             st.image(str(media), width="stretch")
 
-        # Introdução opcional
         if intro:
             st.caption(intro)
 
-        # Botão
         btn_key = f"play_{theme_id}"
         if unlocked:
             if st.button("▶️ Começar", key=btn_key, width="stretch"):
                 start_quiz(theme_raw)
                 st.rerun()
         else:
-            st.button("Bloqueado", key=f"{btn_key}_locked", disabled=True,
-                    width="stretch")
+            st.button(
+                "Bloqueado",
+                key=f"{btn_key}_locked",
+                disabled=True,
+                width="stretch",
+            )
 
 
 def page_home() -> None:
@@ -205,7 +217,6 @@ def page_home() -> None:
         it.get("id", ""): it.get("title", it.get("id", "")) for it in items
     }
 
-    # Ordem fixa desejada (IDs reais dos seus JSONs)
     custom_order = [
         "criaturas_eletricas_v1",
         "musica_persona_v1",
@@ -213,7 +224,6 @@ def page_home() -> None:
     ]
     rank = {k: i for i, k in enumerate(custom_order)}
 
-    # Temas não listados → vão pro final em ordem alfabética
     items_sorted = sorted(
         items,
         key=lambda it: (
@@ -222,7 +232,6 @@ def page_home() -> None:
         ),
     )
 
-    # Progresso
     completed_ids = set(st.session_state.get("completed", []))
     total = len(items_sorted)
     done = len(completed_ids & {it.get("id", "") for it in items_sorted})
@@ -235,7 +244,6 @@ def page_home() -> None:
 
     st.divider()
 
-    # Grid de cards → 2 colunas
     cols = st.columns(2)
     for i, it in enumerate(items_sorted):
         theme_raw = it.get("raw", it)

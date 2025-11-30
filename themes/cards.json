@@ -1,0 +1,54 @@
+{
+  "cards": [
+    {
+      "id": "mago",
+      "name": "O Mago",
+      "image": "assets/sorte/mago.jpg",
+      "meanings": {
+        "past": "Fase de muitas tentativas, testes e inícios.",
+        "present": "Momento bom para usar o que você já aprendeu.",
+        "future": "Vêm chances de criar algo do seu jeito."
+      }
+    },
+    {
+      "id": "forca",
+      "name": "A Força",
+      "image": "assets/sorte/forca.jpg",
+      "meanings": {
+        "past": "Situações puxadas que você segurou com calma.",
+        "present": "Agora sua firmeza interna pesa mais que o barulho.",
+        "future": "Você tende a lidar melhor com desafios sem se quebrar."
+      }
+    },
+    {
+      "id": "sol",
+      "name": "O Sol",
+      "image": "assets/sorte/sol.jpg",
+      "meanings": {
+        "past": "Momentos claros em que tudo fez mais sentido.",
+        "present": "Fase de enxergar melhor o que combina com você.",
+        "future": "Tendem a chegar boas notícias e gente que soma."
+      }
+    },
+    {
+      "id": "lua",
+      "name": "A Lua",
+      "image": "assets/sorte/lua.jpg",
+      "meanings": {
+        "past": "Períodos de dúvida e sensação de neblina.",
+        "present": "Hoje você sente muito antes de decidir.",
+        "future": "O caminho deve pedir mais escuta interna e menos pressa."
+      }
+    },
+    {
+      "id": "mundo",
+      "name": "O Mundo",
+      "image": "assets/sorte/mundo.jpg",
+      "meanings": {
+        "past": "Alguns ciclos seus já foram bem fechados.",
+        "present": "Agora é hora de encaixar peças e organizar histórias.",
+        "future": "Chegam fechamentos bons e sensação de quadro completo."
+      }
+    }
+  ]
+}
