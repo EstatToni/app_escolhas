@@ -24,18 +24,18 @@ def _hsl_to_rgb(h: float, s: float, l: float) -> tuple[float, float, float]:
             t += 1
         if t > 1:
             t -= 1
-        if t < 1/6:
+        if t < 1 / 6:
             return p + (q - p) * 6 * t
-        if t < 1/2:
+        if t < 1 / 2:
             return q
-        if t < 2/3:
-            return p + (q - p) * (2/3 - t) * 6
+        if t < 2 / 3:
+            return p + (q - p) * (2 / 3 - t) * 6
         return p
 
     if s == 0:
         return (l, l, l)
-    q = l * (1 + s) if l < 0.5 else l + s - l*s
-    p = 2*l - q
+    q = l * (1 + s) if l < 0.5 else l + s - l * s
+    p = 2 * l - q
     r = hue2rgb(p, q, h + 1/3)
     g = hue2rgb(p, q, h)
     b = hue2rgb(p, q, h - 1/3)
@@ -50,7 +50,7 @@ def _generate_colors(n: int) -> List[str]:
         s = 0.70
         l = 0.48
         r, g, b = _hsl_to_rgb(h, s, l)
-        out.append("#%02x%02x%02x" % (int(r*255), int(g*255), int(b*255)))
+        out.append("#%02x%02x%02x" % (int(r * 255), int(g * 255), int(b * 255)))
     return out
 
 
@@ -58,7 +58,7 @@ def _draw_wheel(labels: list[str], angle: float, highlight: int | None):
     """Desenha a roleta com ângulo e highlight opcionais."""
     n = len(labels)
     colors = _generate_colors(n)
-    fracs = [1/n] * n
+    fracs = [1 / n] * n
 
     fig, ax = plt.subplots(figsize=(5.5, 5.5))
     fig.subplots_adjust(0.02, 0.02, 0.98, 0.98)
@@ -128,12 +128,12 @@ def _compute_final_angle(n: int, target_idx: int, angle_start: float) -> float:
     base = (90 - center) % 360
     spins = random.randint(3, 6)
     jitter = random.uniform(-slice_deg*0.25, slice_deg*0.25)
-    final = base + spins*360 + jitter
+    final = base + spins * 360 + jitter
 
     # garantir continuidade (não voltar)
     if final < angle_start:
         k = math.ceil((angle_start - final) / 360)
-        final += 360*k
+        final += 360 * k
 
     return final
 

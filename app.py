@@ -3,6 +3,7 @@
 import streamlit as st
 
 # Importa o jogo 1 (Quiz)
+from games.quiz.core.state import init_state as init_quiz_state
 from games.quiz.pages.home import page_home as quiz_home
 from games.quiz.pages.quiz import page_quiz
 from games.quiz.pages.result import page_result
@@ -62,6 +63,10 @@ def main() -> None:
     # 2) Jogo 1 — Quiz (roteamento interno)
     # ---------------------------------------------------------------------
     if game == "quiz":
+
+        # 🔥 CORREÇÃO ESSENCIAL:
+        # Inicializa o estado do Quiz (inclui completed, scores, answers, etc)
+        init_quiz_state()
 
         if st.button("⟵ Voltar ao início", key="quiz_back"):
             go_hub()
